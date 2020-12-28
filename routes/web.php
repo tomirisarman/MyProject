@@ -3,20 +3,22 @@ Route::view('/', 'welcome');
 Auth::routes();
 
 Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm')->name('login.admin');
-Route::get('/login/writer', 'Auth\LoginController@showWriterLoginForm')->name('login.writer');
+Route::get('/login/teacher', 'Auth\LoginController@showTeacherLoginForm')->name('login.teacher');
+
 Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm')->name('register.admin');
-Route::get('/register/writer', 'Auth\RegisterController@showWriterRegisterForm')->name('register.writer');
+Route::get('/register/teacher', 'Auth\RegisterController@showTeacherRegisterForm')->name('register.teacher');
 
 Route::post('/login/admin', 'Auth\LoginController@adminLogin');
-Route::post('/login/writer', 'Auth\LoginController@writerLogin');
+Route::post('/login/teacher', 'Auth\LoginController@teacherLogin');
+
 Route::post('/register/admin', 'Auth\RegisterController@createAdmin')->name('register.admin');
-Route::post('/register/writer', 'Auth\RegisterController@createWriter')->name('register.writer');
+Route::post('/register/teacher', 'Auth\RegisterController@createTeacher')->name('register.teacher');
 
 Route::view('/home', 'home')->middleware('auth');
 Route::group(['middleware' => 'auth:admin'], function () {
     Route::view('/admin', 'admin');
 });
 
-Route::group(['middleware' => 'auth:writer'], function () {
-    Route::view('/writer', 'writer');
+Route::group(['middleware' => 'auth:teacher'], function () {
+    Route::view('/teacher', 'teacher');
 });

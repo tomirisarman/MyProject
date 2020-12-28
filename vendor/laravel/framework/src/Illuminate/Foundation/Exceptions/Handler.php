@@ -255,8 +255,8 @@ class Handler implements ExceptionHandlerContract
         if ($request->is('admin') || $request->is('admin/*')) {
             return redirect()->guest('/login/admin');
         }
-        if ($request->is('writer') || $request->is('writer/*')) {
-            return redirect()->guest('/login/writer');
+        if ($request->is('teacher') || $request->is('writer/*')) {
+            return redirect()->guest('/login/teacher');
         }
         return redirect()->guest(route('login'));
     }

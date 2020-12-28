@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use App\Admin;
+use App\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -42,6 +43,7 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
         $this->middleware('guest:admin');
+        $this->middleware('guest:teacher');
     }
 
     /**
@@ -88,5 +90,21 @@ class RegisterController extends Controller
             'password' => Hash::make($request['password']),
         ]);
         return redirect()->intended('login/admin');
+    }
+
+    public function showTeacherRegisterForm()
+    {
+        return view('auth.register', ['url' => 'teacher']);
+    }
+
+    protected function createTeacher(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $admin = Teacher::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+        return redirect()->intended('login/teacher');
     }
 }

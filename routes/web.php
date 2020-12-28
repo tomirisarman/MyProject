@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+
 Route::view('/', 'welcome');
 Auth::routes();
 
@@ -22,3 +25,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
 Route::group(['middleware' => 'auth:teacher'], function () {
     Route::view('/teacher', 'teacher');
 });
+
+Route::post('/create', 'HomeController@add_course')->name('add_course');
+Route::get('/courses', 'HomeController@show_courses')->name('courses');

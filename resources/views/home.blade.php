@@ -7,6 +7,7 @@
     <a href="#services">Services</a>
     <a href="#clients">Clients</a>
     <a href="#contact">Contact</a>
+    <a href="{{route('courses')}}">Our courses</a>
   </div>
 <div class="container">
     <div class="row justify-content-center">
@@ -26,6 +27,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 
 </body>

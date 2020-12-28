@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'courses'
+        'name', 'email', 'password',
     ];
 
     /**
@@ -38,7 +38,7 @@ class User extends Authenticatable
     ];
 
     protected $attributes = [
-        'courses' => [],
+        
     ];
 
     public function courses(){

@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use PhpParser\Builder\Function_;
+use PhpParser\Node\Expr\FuncCall;
+
 class Teacher extends  Authenticatable
 {
     use Notifiable;
@@ -36,4 +39,7 @@ class Teacher extends  Authenticatable
     // protected $casts = [
     //     'email_verified_at' => 'datetime',
     // ];
+    public function courses(){
+        return $this->hasMany('App\Course');
+    }
 }

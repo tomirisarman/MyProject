@@ -8,6 +8,7 @@
     <a href="#clients">Clients</a>
     <a href="#contact">Contact</a>
     <a href="{{route('courses')}}">Our courses</a>
+    <a href="{{route('my_courses')}}">Your courses</a>
   </div>
 <div class="container">
     <div class="row justify-content-center">

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Lesson;
 use App\Teacher;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -35,10 +38,27 @@ class HomeController extends Controller
     //     $c->save();
     //     return view('home');
     // }
-    public function show_courses(Request $req)
+    public function show_courses()
     {
         $c = Course::all();
-        $t = Teacher::all();
-        return view('courses', compact('c', 't'));
+        return view('courses', compact('c'));
     }
+
+    public function add_course(Request $req, $c_id)
+    {
+        $c = Course::find($c_id);
+        $user = Auth::user();
+        DB::statement("UPDATE users SET courses=JSON_ARRAY_APPEND(courses, '$', ".$c->id.") WHERE id=".$user->id);
+        return redirect('my_courses');
+    }
+    public function view_lessons($c_id)
+    {
+        $c = Course::find($c_id);
+        $lessons = Lesson::where('course_id', $c_id)->first();
+        $title = $lessons->title;
+        $material = $lessons->material;
+        // var_dump($lessons);
+        return view('lessons', compact('title', 'material'));
+    }
+
 }

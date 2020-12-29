@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -26,5 +26,8 @@ Route::group(['middleware' => 'auth:teacher'], function () {
     Route::view('/teacher', 'teacher');
 });
 
-Route::post('/create', 'HomeController@add_course')->name('add_course');
+// Route::post('/create', 'HomeController@add_course')->name('add_course');
 Route::get('/courses', 'HomeController@show_courses')->name('courses');
+Route::view('/my_courses', 'my_courses')->name('my_courses');
+Route::get('/view_lessons/{c_id?}', 'HomeController@view_lessons')->name('view_lessons');
+Route::post('/add/{c_id?}', 'HomeController@add_course')->name('add_course');

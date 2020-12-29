@@ -19,10 +19,11 @@ class CreateLessonsTable extends Migration
             $table->string('title');
             $table->unsignedBigInteger('course_id');
             $table->foreign('course_id')->references('id')->on('courses');
+            $table->string('material');
             $table->timestamps();
         });
 
-        DB::statement("ALTER TABLE lessons ADD material LONGBLOB");
+        // DB::statement("ALTER TABLE lessons ADD material LONGBLOB");
     }
 
     /**

@@ -20,6 +20,7 @@ class CreateCoursesTable extends Migration
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->timestamps();
         });
+
     }
 
     /**

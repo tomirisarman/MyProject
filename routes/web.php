@@ -28,6 +28,11 @@ Route::group(['middleware' => 'auth:teacher'], function () {
 
 // Route::post('/create', 'HomeController@add_course')->name('add_course');
 Route::get('/courses', 'HomeController@show_courses')->name('courses');
-Route::view('/my_courses', 'my_courses')->name('my_courses');
+Route::view('/my_courses', 'user.my_courses')->name('my_courses');
 Route::get('/view_lessons/{c_id?}', 'HomeController@view_lessons')->name('view_lessons');
 Route::post('/add/{c_id?}', 'HomeController@add_course')->name('add_course');
+
+Route::view('/courses', 'admin.courses')->name('admin.courses');
+Route::get('/lessons', 'AdminController@show_lessons')->name('admin.lessons');
+Route::post('/create', 'AdminController@create')->name('create');
+Route::post('/delete/{c_id?}', 'AdminController@delete')->name('delete_course');

@@ -41,7 +41,7 @@ class HomeController extends Controller
     public function show_courses()
     {
         $c = Course::all();
-        return view('courses', compact('c'));
+        return view('user.courses', compact('c'));
     }
 
     public function add_course(Request $req, $c_id)
@@ -58,7 +58,7 @@ class HomeController extends Controller
         $title = $lessons->title;
         $material = $lessons->material;
         // var_dump($lessons);
-        return view('lessons', compact('title', 'material'));
+        return view('user.lessons', compact('title', 'material'));
     }
 
 }

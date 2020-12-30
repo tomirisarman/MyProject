@@ -54,11 +54,11 @@ class HomeController extends Controller
     public function view_lessons($c_id)
     {
         $c = Course::find($c_id);
-        $lessons = Lesson::where('course_id', $c_id)->first();
-        $title = $lessons->title;
-        $material = $lessons->material;
-        // var_dump($lessons);
-        return view('user.lessons', compact('title', 'material'));
+        $lessons = Lesson::where('course_id', $c_id)->get();
+        // $title = $lessons->title;
+        // $material = $lessons->material;
+        // // var_dump($lessons);
+        return view('user.lessons', compact('lessons'));
     }
 
 }

@@ -1,3 +1,5 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 @extends('layouts.app')
 
 @section('content')
@@ -7,18 +9,13 @@
     $lessons = App\Lesson::get();
 ?>
 @include('layouts.adminnav')
-
-<table class="container table table-striped">
     @foreach ($result as $course=>$lessons)
+    <form action="{{route('add_lesson', $course)}}" method="POST" enctype="multipart/form-data">
+        @csrf
+    <table class="container table table-striped table-bordered">
         <tr>
-            <td colspan="2">
-                <p>{{$course}}</p>
-            </td>
-            <td>
-                <form action="" method="POST">
-                    @csrf
-                    <input class="btn btn-success" type="submit" value="Add new lesson">
-                </form>
+            <td colspan="3">
+                <h3>{{$course}}</h3>
             </td>
         </tr>
         <tr>
@@ -34,11 +31,30 @@
             </td>
             <td>
                 @foreach ($lessons as $lesson)
-                    <p><a href="{{asset($lesson[1])}}" download="{{$course.' '.$lesson[0]}}">Скачать материалы</a></p>
+                    <? $format = explode('.', $lesson[1])[1] ?>
+                    <p><a href="{{asset($lesson[1])}}"  download="{{ $course.' '.$lesson[0].'.'.$format }}">Скачать материалы</a></p>
                 @endforeach 
             </td>
         </tr>
+        <tr>
+                <td>
+                
+                   
+                    <label for="title">Lesson title</label>
+                    <input type="text" name="title">
+                </td>
+                <td>
+                    <label for="material">Materials</label>
+                    <input type="file" name="material">
+                </td>
+                <td>
+                    <input class="btn btn-success" type="submit" value="Add new lesson">
+                
+                </td>
+           
+        </tr>
+    </table>
+</form>
     @endforeach
-</table>
 
 @endsection

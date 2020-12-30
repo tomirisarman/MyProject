@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Course;
 use App\Lesson;
 use App\Teacher;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,6 +52,25 @@ class AdminController extends Controller
         }
 
         return view('admin.lessons', compact('result'));
+    }
+    // public function download_lesson($path)
+    // {
+    //     return response()->download($path);
+    // }
+    public function add_lesson(Request $req, $course)
+    {
+        if(!public_path('materials/'.$course.'/')){
+            File::makeDirectory(public_path('materials/'.$course.'/'), 0775, true);
+        }
+        
+        $req->material->move(public_path('materials/'.$course.'/'), $req->material->getClientOriginalName());
+        $lesson = new Lesson();
+        $lesson->title = $req->title;
+        $course_col = Course::where('name', $course)->first();
+        $lesson->course_id = $course_col->id;
+        $lesson->material = "materials/".$course.'/'.$req->material->getClientOriginalName();
+        $lesson->save();
+        return back()->withInput();
     }
 
 }

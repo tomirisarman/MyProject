@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('/delete/{c_id?}', 'AdminController@delete')->name('delete_course');
 
     Route::post('/add_lesson/{course?}', 'AdminController@add_lesson')->name('add_lesson');
+    Route::post('/del_lesson/{l_id?}', 'AdminController@delete_lesson')->name('del_lesson');
 });
 
 Route::group(['middleware' => 'auth:teacher'], function () {

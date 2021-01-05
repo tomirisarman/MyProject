@@ -46,7 +46,7 @@ class AdminController extends Controller
             $result[$c->name] = array();
             foreach($lessons as $l){
                 if($c->id == $l->course_id){
-                    $result[$c->name][]=[$l->title, $l->material];
+                    $result[$c->name][]=[$l->title, $l->material, $l->id];
                 }
             }
         }
@@ -70,6 +70,15 @@ class AdminController extends Controller
         $lesson->course_id = $course_col->id;
         $lesson->material = "materials/".$course.'/'.$req->material->getClientOriginalName();
         $lesson->save();
+        return back()->withInput();
+    }
+
+    public function delete_lesson($l_id)
+    {
+        $lesson = Lesson::find($l_id);
+        $filepath = $lesson->material;
+        unlink(public_path($filepath));
+        $lesson->delete();
         return back()->withInput();
     }
 

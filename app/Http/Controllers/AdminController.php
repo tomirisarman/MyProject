@@ -35,6 +35,14 @@ class AdminController extends Controller
         return back()->with('message', 'Deleted!');
     }
 
+    public function edit_course(Request $req, $c_id){
+        $course = Course::find($c_id);
+        $course->name=$req->c_name;
+        $course->teacher_id=$req->t_id;
+        $course->save();
+        return back()->with('message', 'Edited!');
+    }
+
     public function show_lessons()
     {
         $courses = Course::get();

@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('/lessons', 'AdminController@show_lessons')->name('admin.lessons');
     Route::post('/create', 'AdminController@create')->name('create');
     Route::post('/delete/{c_id?}', 'AdminController@delete')->name('delete_course');
+    Route::post('/edit/{c_id?}', 'AdminController@edit_course')->name('edit_course');
 
     Route::post('/add_lesson/{course?}', 'AdminController@add_lesson')->name('add_lesson');
     Route::post('/del_lesson/{l_id?}', 'AdminController@delete_lesson')->name('del_lesson');

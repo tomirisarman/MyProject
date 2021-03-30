@@ -25,11 +25,14 @@ class DatabaseSeeder extends Seeder
             ['name'=>'C++', 'teacher_id'=>3],
         ];
         DB::table('courses')->insert($c);
-
+        $a = [
+            ['id'=>1, 'name'=>'Admin', 'email'=>'admin@123.com', 'password'=>Hash::make('qwerty123')],
+        ];
+        DB::table('admins')->insert($a);
         // if (!file_exists(public_path('/materials'))) {
         //     mkdir(public_path('/materials'), 0777, true);
         // }
-       
+
 
     }
 }

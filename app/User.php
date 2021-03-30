@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -35,13 +34,17 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'tags' => 'array',
     ];
 
     protected $attributes = [
-        
+        'courses' => '[]',
     ];
 
     public function courses(){
         return $this->hasMany('App\Course');
+    }
+    public function homeworks(){
+        return $this->hasMany('App\Homework');
     }
 }

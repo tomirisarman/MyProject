@@ -21,12 +21,12 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->jsonb('courses')->default('[]');
+            $table->jsonb('courses');
             $table->timestamps();
         });
         // DB::statement("ALTER TABLE users ALTER courses SET DEFAULT '[]'");
     }
-    
+
     /**
      * Reverse the migrations.
      *

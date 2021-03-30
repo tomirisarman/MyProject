@@ -36,6 +36,9 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::post('/add_lesson/{course?}', 'AdminController@add_lesson')->name('add_lesson');
     Route::post('/del_lesson/{l_id?}', 'AdminController@delete_lesson')->name('del_lesson');
+
+    Route::get('/homeworks', 'AdminController@show_homeworks')->name('admin.homeworks');
+
 });
 
 Route::group(['middleware' => 'auth:teacher'], function () {

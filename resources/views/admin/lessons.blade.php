@@ -3,11 +3,6 @@
 @extends('layouts.app')
 
 @section('content')
-<?
-    $courses = App\Course::get();
-    $teachers = App\Teacher::get();
-    $lessons = App\Lesson::get();
-?>
 @include('layouts.adminnav')
     @foreach ($result as $course=>$lessons)
     <table class="container table table-bordered">
@@ -32,21 +27,27 @@
                 {{-- @foreach ($lessons as $lesson) --}}
                     <? $format = explode('.', $lesson[1])[1] ?>
                     <p><a href="{{asset($lesson[1])}}"  download="{{ $course.' '.$lesson[0].'.'.$format }}">
-                        <button class="btn btn-link">Скачать материалы</button> 
+                        <button class="btn btn-link">Скачать материалы</button>
                     </a></p>
+                    @if($lesson[2])
+                    <? $format = explode('.', $lesson[2])[1] ?>
+                    <p><a href="{{asset($lesson[2])}}"  download="{{ 'ДЗ '.$course.' '.$lesson[0].'.'.$format }}">
+                        <button class="btn btn-link">Скачать ДЗ</button>
+                    </a></p>
+                    @endif
                 {{-- @endforeach  --}}
             </td>
             <td>
                 {{-- @foreach ($lessons as $lesson) --}}
-                <form action="{{route('del_lesson', $lesson[2])}}" method="POST">
+                <form action="{{route('del_lesson', $lesson[3])}}" method="POST">
                     @csrf
                     <p><input class="btn btn-link" type="submit" value="Удалить"></p>
                     {{-- <p><a href="" onclick="parentNode.submit();">Удалить</a></p> --}}
                 </form>
-                
+
             </td>
         </tr>
-        @endforeach 
+        @endforeach
     </table>
 
 
@@ -58,9 +59,13 @@
                 <label for="title">Lesson title</label>
                 <input type="text" name="title">
             </td>
-            <td colspan="2">
+            <td>
                 <label for="material">Materials</label>
                 <input type="file" name="material">
+            </td>
+            <td>
+                <label for="assignment">Assignment</label>
+                <input type="file" name="assignment">
             </td>
             <td>
                 <input class="btn btn-success" style="float: right" type="submit" value="Add new lesson">
@@ -68,7 +73,7 @@
         </tr>
     </table>
     </form>
-    
+
 
     @endforeach
 

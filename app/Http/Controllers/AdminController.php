@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Homework;
 use Illuminate\Http\Request;
 use App\Course;
 use App\Lesson;
@@ -46,7 +47,6 @@ class AdminController extends Controller
     public function show_lessons()
     {
         $courses = Course::get();
-        $teachers = Teacher::get();
         $lessons = Lesson::get();
 
         $result = array();
@@ -54,7 +54,7 @@ class AdminController extends Controller
             $result[$c->name] = array();
             foreach($lessons as $l){
                 if($c->id == $l->course_id){
-                    $result[$c->name][]=[$l->title, $l->material, $l->id];
+                    $result[$c->name][]=[$l->title, $l->material, $l->assignment, $l->id];
                 }
             }
         }
@@ -67,16 +67,25 @@ class AdminController extends Controller
     // }
     public function add_lesson(Request $req, $course)
     {
-        if(!public_path('materials/'.$course.'/')){
-            File::makeDirectory(public_path('materials/'.$course.'/'), 0775, true);
-        }
-        
-        $req->material->move(public_path('materials/'.$course.'/'), $req->material->getClientOriginalName());
         $lesson = new Lesson();
         $lesson->title = $req->title;
         $course_col = Course::where('name', $course)->first();
         $lesson->course_id = $course_col->id;
+
+        if(!public_path('materials/'.$course.'/')){
+            File::makeDirectory(public_path('materials/'.$course.'/'), 0775, true);
+        }
+
+        $req->material->move(public_path('materials/'.$course.'/'), $req->material->getClientOriginalName());
         $lesson->material = "materials/".$course.'/'.$req->material->getClientOriginalName();
+
+        if(!public_path('assignments/'.$course.'/')){
+            File::makeDirectory(public_path('assignments/'.$course.'/'), 0775, true);
+        }
+
+        $req->assignment->move(public_path('assignments/'.$course.'/'), $req->assignment->getClientOriginalName());
+        $lesson->assignment = "assignments/".$course.'/'.$req->assignment->getClientOriginalName();
+
         $lesson->save();
         return back()->withInput();
     }
@@ -90,4 +99,9 @@ class AdminController extends Controller
         return back()->withInput();
     }
 
+    public function show_homeworks()
+    {
+        $hws = Homework::get();
+        return view('admin.homeworks', compact('hws'));
+    }
 }

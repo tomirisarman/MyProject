@@ -8,9 +8,9 @@ class Homework extends Model
 {
     protected $table = 'homeworks';
     public function users(){
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'user_id');
     }
     public function lessons(){
-        return $this->belongsTo('App\Lesson');
+        return $this->belongsTo('App\Lesson', 'lesson_id');
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<?
+<?php
 $user = Auth::user();
 $user_courses = json_decode($user->courses);
 ?>
@@ -23,9 +23,9 @@ $user_courses = json_decode($user->courses);
                             <input type="submit" disabled value="Add course">
                         @else
                             <input type="submit" value="Add course">
-                        @endif 
+                        @endif
                     </form>
-                </td>  
+                </td>
             </tr>
         @endforeach
     </table>

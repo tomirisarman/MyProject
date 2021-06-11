@@ -25,12 +25,12 @@
             </td>
             <td>
                 {{-- @foreach ($lessons as $lesson) --}}
-                    <? $format = explode('.', $lesson[1])[1] ?>
+                    <?php $format = explode('.', $lesson[1])[1] ?>
                     <p><a href="{{asset($lesson[1])}}"  download="{{ $course.' '.$lesson[0].'.'.$format }}">
                         <button class="btn btn-link">Скачать материалы</button>
                     </a></p>
                     @if($lesson[2])
-                    <? $format = explode('.', $lesson[2])[1] ?>
+                    <?php $format = explode('.', $lesson[2])[1] ?>
                     <p><a href="{{asset($lesson[2])}}"  download="{{ 'ДЗ '.$course.' '.$lesson[0].'.'.$format }}">
                         <button class="btn btn-link">Скачать ДЗ</button>
                     </a></p>
@@ -56,19 +56,19 @@
     <table class="container table table-striped">
         <tr>
             <td>
-                <label for="title">Lesson title</label>
+                <label for="title">Тема урока</label>
                 <input type="text" name="title">
             </td>
             <td>
-                <label for="material">Materials</label>
+                <label for="material">Материалы</label>
                 <input type="file" name="material">
             </td>
             <td>
-                <label for="assignment">Assignment</label>
+                <label for="assignment">ДЗ</label>
                 <input type="file" name="assignment">
             </td>
             <td>
-                <input class="btn btn-success" style="float: right" type="submit" value="Add new lesson">
+                <input class="btn btn-success" style="float: right" type="submit" value="Добавить урок">
             </td>
         </tr>
     </table>

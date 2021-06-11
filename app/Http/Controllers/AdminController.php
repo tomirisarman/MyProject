@@ -101,7 +101,26 @@ class AdminController extends Controller
 
     public function show_homeworks()
     {
-        $hws = Homework::get();
-        return view('admin.homeworks', compact('hws'));
+        $courses = Course::get();
+        $result = Array();
+        foreach ($courses as $c){
+            $les = $c->lessons;
+            foreach($les as $l){
+                $result[$c->name][$l->title] = $l->homeworks;
+            }
+        }
+          return view('admin.homeworks', compact('result'));
+    }
+
+    public function edit_score(Request $req, $hw_id){
+        $hw = Homework::find($hw_id);
+        $hw->score = $req->score;
+        $hw->save();
+        return back()->withInput();
+    }
+    public function delete_hw($hw_id){
+        $hw = Homework::find($hw_id);
+        $hw->delete();
+        return back()->withInput();
     }
 }

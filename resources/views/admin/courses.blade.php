@@ -1,41 +1,42 @@
 @extends('layouts.app')
 
 @section('content')
-<?
-    $courses = App\Course::get();
-    $teachers = App\Teacher::get();
+
+<?php
+    $courses = \App\Course::get();
+    $teachers = \App\Teacher::get();
 ?>
 @include('layouts.adminnav')
 
 <div class="container">
     <form action="{{route('create')}}" method="POST">
         @csrf
-        <label for="c_name">Course name</label>
+        <label for="c_name">Название курса</label>
         <input type="text" name="c_name" id="c_name">
-        <label for="teacher">Teacher</label>
+        <label for="teacher">Преподаватель</label>
         <select name="teacher" id="teacher">
             @foreach ($teachers as $t)
                 <option value="{{$t->id}}">
                     {{$t->name}}
                 </option>
             @endforeach
-            
+
         </select>
-        <input class="btn btn-success" type="submit" value="Create">
+        <input class="btn btn-success" type="submit" value="Создать">
     </form>
     <table class="table table-dark table-striped">
         @foreach ($courses as $c)
             <tr>
                 <td>{{$c->name}}</td>
-                <? $t_name = App\Teacher::where('id', $c->teacher_id)->first()['name'];?>
+                <?php $t_name = App\Teacher::where('id', $c->teacher_id)->first()['name'];?>
                 <td>{{$t_name}}</td>
                 <td>
-                    <button id="edit_btn" class="btn btn-primary" onclick="edit_course({{$c->id}})">Edit</button>
+                    <button id="edit_btn" class="btn btn-primary" onclick="edit_course({{$c->id}})">Изменить</button>
                 </td>
                 <td>
                     <form action="{{route('delete_course', $c->id)}}" method="POST">
                         @csrf
-                        <input type="submit" class="btn btn-danger" value="Delete">
+                        <input type="submit" class="btn btn-danger" value="Удалить">
                     </form>
                 </td>
             </tr>
@@ -57,9 +58,9 @@
                                         </option>
                                     @endif
                                 @endforeach
-                                
+
                             </select>
-                            <input type="submit" class="btn btn-light" value="Submit">
+                            <input type="submit" class="btn btn-light" value="Отправить">
                         </form>
                     </div>
                 </td>

@@ -20,7 +20,7 @@ class CreateHomeworksTable extends Migration
             $table->unsignedBigInteger('lesson_id');
             $table->foreign('lesson_id')->references('id')->on('lessons');
             $table->string('hw_file');
-            $table->unsignedInteger('score');
+            $table->unsignedInteger('score')->nullable()->default(null);
             $table->timestamps();
         });
     }

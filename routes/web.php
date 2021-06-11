@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth:web'], function () {
     Route::view('/my_courses', 'user.my_courses')->name('my_courses');
     Route::get('/view_lessons/{c_id?}', 'HomeController@view_lessons')->name('view_lessons');
     Route::post('/add/{c_id?}', 'HomeController@add_course')->name('add_course');
+    Route::post('/upload_hw/{l_id?}', 'HomeController@upload_hw')->name('upload_hw');
 });
 
 Route::group(['middleware' => 'auth:admin'], function () {
@@ -37,12 +38,16 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('/add_lesson/{course?}', 'AdminController@add_lesson')->name('add_lesson');
     Route::post('/del_lesson/{l_id?}', 'AdminController@delete_lesson')->name('del_lesson');
 
-    Route::get('/homeworks', 'AdminController@show_homeworks')->name('admin.homeworks');
+    Route::get('/hworks', 'AdminController@show_homeworks')->name('admin.homeworks');
+    Route::get('/hworks/edit/{hw_id}', 'AdminController@edit_score')->name('edit_score');
+    Route::get('/hworks/delete/{hw_id}', 'AdminController@delete_hw')->name('delete_hw');
+
 
 });
 
 Route::group(['middleware' => 'auth:teacher'], function () {
     Route::view('/teacher', 'teacher');
+    Route::get('/teach_courses', 'TeacherController@teacher_courses')->name('teacher.courses');
 });
 
 // Route::post('/create', 'HomeController@add_course')->name('add_course');
